@@ -1,0 +1,36 @@
+@model IEnumerable<Gventas.WebMVC.Models.Cliente>
+@{ ViewBag.Title = "Listado de Clientes"; }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Mantenimiento de Clientes (Consumiendo Web API)</h3>
+    <a asp-action="Create" class="btn btn-primary">+ Nuevo Cliente</a>
+</div>
+
+<table class="table table-striped table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.codigo)</th>
+            <th>@Html.DisplayNameFor(m => m.ruc)</th>
+            <th>@Html.DisplayNameFor(m => m.nombres)</th>
+            <th>@Html.DisplayNameFor(m => m.telefono)</th>
+            <th>@Html.DisplayNameFor(m => m.direccion)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.codigo</td>
+                <td>@item.ruc</td>
+                <td>@item.nombres</td>
+                <td>@item.telefono</td>
+                <td>@item.direccion</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.codigo" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.codigo" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar cliente?');">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

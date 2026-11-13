@@ -1,0 +1,29 @@
+@model Gventas.WebMVC.Models.Producto
+@{ ViewBag.Title = "Gestión de Producto"; }
+
+<h3>@(string.IsNullOrEmpty(Model.codigo) ? "Nuevo Producto" : "Editar Producto")</h3>
+<hr />
+<form asp-action="Edit" method="post" class="col-md-6">
+    <div class="mb-3">
+        <label asp-for="codigo" class="form-label"></label>
+        <input asp-for="codigo" class="form-control" placeholder="Ej: P0005" />
+        <span asp-validation-for="codigo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="nombre" class="form-label"></label>
+        <input asp-for="nombre" class="form-control" />
+        <span asp-validation-for="nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="unidad" class="form-label"></label>
+        <input asp-for="unidad" class="form-control" placeholder="Unidad, Caja, Paquete..." />
+        <span asp-validation-for="unidad" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="precio" class="form-label"></label>
+        <input asp-for="precio" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="precio" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar Producto (MERGE SQL)</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</form>

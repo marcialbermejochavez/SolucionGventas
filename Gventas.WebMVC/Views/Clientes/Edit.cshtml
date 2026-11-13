@@ -1,0 +1,33 @@
+@model Gventas.WebMVC.Models.Cliente
+@{ ViewBag.Title = "Editar Cliente"; }
+
+<h3>Actualizar Datos del Cliente</h3>
+<hr />
+<form asp-action="Edit" method="post" class="col-md-6">
+    <div class="mb-3">
+        <label asp-for="codigo" class="form-label"></label>
+        <input asp-for="codigo" class="form-control" readonly />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ruc" class="form-label"></label>
+        <input asp-for="ruc" class="form-control" maxlength="11" />
+        <span asp-validation-for="ruc" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="nombres" class="form-label"></label>
+        <input asp-for="nombres" class="form-control" />
+        <span asp-validation-for="nombres" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="telefono" class="form-label"></label>
+        <input asp-for="telefono" class="form-control" />
+        <span asp-validation-for="telefono" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="direccion" class="form-label"></label>
+        <input asp-for="direccion" class="form-control" />
+        <span asp-validation-for="direccion" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Actualizar vía Web API</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</form>

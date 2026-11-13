@@ -1,0 +1,27 @@
+@model IEnumerable<Gventas.WebMVC.Models.Producto>
+@{ ViewBag.Title = "Catálogo vía gRPC"; }
+
+<h3>Catálogo de Productos (Consumido desde Gventas.GrpcService)</h3>
+<p class="text-muted">Esta vista consulta directamente el servidor gRPC mediante HTTP/2 y Protocol Buffers.</p>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-primary">
+        <tr>
+            <th>Código</th>
+            <th>Producto</th>
+            <th>Unidad</th>
+            <th>Precio Unitario</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.codigo</td>
+                <td>@item.nombre</td>
+                <td>@item.unidad</td>
+                <td>S/ @item.precio.ToString("F2")</td>
+            </tr>
+        }
+    </tbody>
+</table>

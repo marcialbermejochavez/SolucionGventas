@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "Gventas.GrpcService";
+
+package productos;
+
+service ProductoGrpc {
+  rpc ListarProductos (EmptyRequest) returns (ListaProductosResponse);
+}
+
+message EmptyRequest {}
+
+message ProductoItem {
+  string codigo = 1;
+  string nombre = 2;
+  string unidad = 3;
+  double precio = 4;
+}
+
+message ListaProductosResponse {
+  repeated ProductoItem items = 1;
+}

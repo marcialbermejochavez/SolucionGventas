@@ -1,0 +1,80 @@
+@model Gventas.WebMVC.Models.PedidoViewModel
+@{ ViewBag.Title = "Nuevo Pedido"; }
+
+<h3>Registro de Pedido de Venta (Cabecera y Detalle)</h3>
+<hr />
+
+<form asp-action="AgregarDetalle" method="post" class="row g-3 border p-3 mb-4 bg-light rounded">
+    <div class="col-md-6">
+        <label class="form-label fw-bold">Producto</label>
+        <select name="cod_producto" class="form-select">
+            @foreach (var p in Model.ListaProductos)
+            {
+                <option value="@p.codigo">@p.nombre - S/ @p.precio.ToString("F2") (@p.unidad)</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label fw-bold">Cantidad</label>
+        <input type="number" name="cantidad" value="1" min="1" class="form-control" />
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">+ Agregar Ítem</button>
+    </div>
+</form>
+
+<table class="table table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Código</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+            <th>Quitar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Detalles.Any())
+        {
+            <tr><td colspan="6" class="text-center text-muted">No hay productos agregados al pedido.</td></tr>
+        }
+        else
+        {
+            @foreach (var item in Model.Detalles)
+            {
+                <tr>
+                    <td>@item.cod_producto</td>
+                    <td>@item.nombre_producto</td>
+                    <td>@item.cantidad</td>
+                    <td>S/ @item.precio.ToString("F2")</td>
+                    <td class="fw-bold">S/ @item.subtotal.ToString("F2")</td>
+                    <td>
+                        <a asp-action="QuitarDetalle" asp-route-id="@item.cod_producto" class="btn btn-sm btn-outline-danger">X</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr class="table-secondary fw-bold">
+            <td colspan="4" class="text-end">TOTAL PEDIDO:</td>
+            <td colspan="2">S/ @Model.Detalles.Sum(d => d.subtotal).ToString("F2")</td>
+        </tr>
+    </tfoot>
+</table>
+
+<form asp-action="GrabarPedido" method="post" class="row g-3 mt-2 p-3 border rounded">
+    <div class="col-md-6">
+        <label class="form-label fw-bold">Seleccionar Cliente (Obtenido desde Web API)</label>
+        <select name="cod_cliente" class="form-select" required>
+            @foreach (var c in Model.ListaClientes)
+            {
+                <option value="@c.codigo">@c.ruc - @c.nombres</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-6 d-flex align-items-end">
+        <button type="submit" class="btn btn-success w-100">Confirmar y Grabar Pedido (Transacción SQL + SignalR)</button>
+    </div>
+</form>
